@@ -11,12 +11,12 @@ export function Header() {
       <RightButtonsContainer>
 
         <CityButton>
-          <MapPin size={22}/>
+          <MapPin weight="fill" size={22}/>
           Porto Alegre, RS
         </CityButton>
 
         <CartButton>
-          <ShoppingCart size={22}/>
+          <ShoppingCart weight="fill" size={22}/>
         </CartButton>
         
       </RightButtonsContainer>
