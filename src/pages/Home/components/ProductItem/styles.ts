@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const ItemContainer = styled.div`
-  width: 15.75rem;
+  width: 16rem;
   display:flex;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   background: ${(props) => props.theme['base-card']};
-  border-bottom-left-radius: 32px;
-  border-top-right-radius: 32px;
-  padding: 1.5rem;
+  border-bottom-left-radius: 40px;
+  border-top-right-radius: 40px;
+  padding: 1rem 1rem 1.5rem 1rem;
 
   img {
     margin-top: -2rem;
@@ -50,6 +50,8 @@ export const PriceSession = styled.div`
   width:100%;
   display: flex;
   justify-content: space-between;
+  margin-top:1rem;
+  padding: 0 0.5rem;
 `
 export const Price = styled.div`
   font-size: 1.5rem;
@@ -99,12 +101,17 @@ export const AddCartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  cursor: pointer;
+
   border: 0;
 
   border-radius: 8px;
 
   background: ${(props) => props.theme['purple-dark']};
   color: ${(props) => props.theme['base-card']};
+  
+  &:hover {
+    background: ${(props) => props.theme.purple};
+  }
 
 `

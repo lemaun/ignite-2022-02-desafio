@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import bgBanner from '../../../../assets/images/Background.png'
 
 export const BannerContainer = styled.div`
   display:flex;
@@ -7,6 +8,7 @@ export const BannerContainer = styled.div`
   /* max-height: 544px; */
   padding: 6rem 0.5rem;
   gap: 1.25rem;
+  background-image: url(${bgBanner});
 `
 export const BannerLeft = styled.div`
   /* max-width: 55%; */
