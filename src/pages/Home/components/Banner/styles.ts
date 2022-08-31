@@ -4,11 +4,17 @@ export const BannerContainer = styled.div`
   display:flex;
   align-items: center;
   justify-content: space-between;
-  max-height: 544px;
+  /* max-height: 544px; */
   padding: 6rem 0.5rem;
+  gap: 1.25rem;
 `
 export const BannerLeft = styled.div`
-  max-width: 55%;
+  /* max-width: 55%; */
+  flex-grow: 3;
+`
+export const BannerRight = styled.div`
+  /* max-width: 45%; */
+  flex-grow: 2;
 `
 export const BannerTitle = styled.div`
   font-size: 3rem;
@@ -59,6 +65,3 @@ export const BannerItem = styled.div<ItemProps>`
   }
 `
 
-export const BannerRight = styled.div`
-  max-width: 45%;
-`
