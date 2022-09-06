@@ -1,50 +1,57 @@
 import { ActionTypes } from "./actions";
 import { produce } from 'immer'
-import { Coffee } from "phosphor-react";
 
-export interface Coffee {
+export interface Coffee{
   id: string;
   name: string;
-  qtd: number;
-  price:string | any;
-} 
+  type: string;
+  typeduo?: string;
+  typetrio?: string;
+  description: string,
+  image: string | any;
+  price:number | any;
+}
 
+export interface CoffeeCart {
+  coffeeId: string
+  qtd: number
+  value: number
+}
 interface CoffeeState {
-  coffees: Coffee[]
-  coffeeId: string | null
+  cartList: CoffeeCart[]
 }
 
 export function cartReducer(state: CoffeeState, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_QTD_ITEM: {
-      const cartItemIndex = state.coffees.findIndex((Coffee) => {
-        return Coffee.id === state.coffeeId
+      const cartItemIndex = state.cartList.findIndex((Coffee) => {
+        return Coffee.coffeeId === action.payload.coffeeId
       })
       return produce(state, draft => {
-        draft.coffees[cartItemIndex].qtd += 1
+        draft.cartList[cartItemIndex].qtd += 1
       })
     }
     case ActionTypes.SUB_QTD_ITEM: {
-      const cartItemIndex = state.coffees.findIndex((Coffee) => {
-        return Coffee.id === state.coffeeId
+      const cartItemIndex = state.cartList.findIndex((Coffee) => {
+        return Coffee.coffeeId === action.payload.coffeeId
       })
       return produce(state, draft => {
-        if (draft.coffees[cartItemIndex].qtd > 1) {
-          draft.coffees[cartItemIndex].qtd -= 1
+        if (draft.cartList[cartItemIndex].qtd > 1) {
+          draft.cartList[cartItemIndex].qtd -= 1
         }
       })
     }
     case ActionTypes.REM_ITEM: {
-      const cartItemIndex = state.coffees.findIndex((Coffee) => {
-        return Coffee.id === state.coffeeId
+      const cartItemIndex = state.cartList.findIndex((Coffee) => {
+        return Coffee.coffeeId === action.payload.coffeeId
       })
       return produce(state, draft => {
-        draft.coffees.splice(cartItemIndex)
+        draft.cartList.splice(cartItemIndex)
       })
     }
     case ActionTypes.ADD_ITEM: {
       return produce(state, draft => {
-        draft.coffees.push(action.payload.newItem)
+        draft.cartList.push(action.payload.newItem)
         // draft.coffeeId = action.payload.newItem.id
       })
     }

@@ -1,6 +1,7 @@
 import { Minus, Plus, ShoppingCart } from "phosphor-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AddCartButton, AddCartContainer, ButtonCount, CoffeeName, Counter, Description, ItemContainer, Price, PriceSession, TypesContainer } from "./styles";
+import { CartContext } from "../../../../contexts/CartContext";
 
 interface CoffeeProps {
   id: string;
@@ -14,6 +15,8 @@ interface CoffeeProps {
 } 
 
 export function ProductItem({...props}:CoffeeProps) {
+  const { addCartItem } = useContext(CartContext)
+
   const [qtd, setQtd] = useState(1)
 
   function subQtd(){
@@ -29,6 +32,9 @@ export function ProductItem({...props}:CoffeeProps) {
     setQtd((state) => {
       return state + 1
     })
+  }
+  function handleAddCartItem(){
+    addCartItem(props.id, qtd)
   }
 
   return (
@@ -49,7 +55,7 @@ export function ProductItem({...props}:CoffeeProps) {
               <span>{qtd}</span>
               <ButtonCount onClick={addQtd}><Plus size={14} /></ButtonCount>
           </Counter>
-          <AddCartButton><ShoppingCart weight="fill" size={22}/></AddCartButton>
+          <AddCartButton onClick={handleAddCartItem}><ShoppingCart weight="fill" size={22}/></AddCartButton>
         </AddCartContainer>
       </PriceSession>
     </ItemContainer>
