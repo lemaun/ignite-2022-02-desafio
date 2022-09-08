@@ -1,6 +1,8 @@
 import { addItemToCartAction, remCartItemAction, subQuantCartItemAction, addQuantCartItemAction } from "../reducers/cart/actions"
 import { cartReducer, CoffeeCart } from "../reducers/cart/reducer"
-import { createContext, ReactNode, useEffect, useReducer } from "react"
+import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
+import { useNavigate } from "react-router-dom";
+
 import {v4 as uuidv4} from 'uuid'
 
 
@@ -19,17 +21,25 @@ import Coffee12 from '/src/assets/images/Havaiano.png'
 import Coffee13 from '/src/assets/images/Arabe.png'
 import Coffee14 from '/src/assets/images/Irlandes.png'
 
-interface NewItemData {
-  coffeeId: string
-  qtd: number
+interface FormPurchaseData {
+  cep: string,
+  logradouro: string,
+  numero: string,
+  complemento?: string,
+  bairro: string,
+  cidade: string,
+  uf: string
+  pagamento: string
 }
 interface CoffeeContextType {
   // coffees: Coffee[]
   cartList: CoffeeCart[]
+  purchaseData: FormPurchaseData
   subQuantCartItem: (coffeeId:string) => void
   addQuantCartItem: (coffeeId:string) => void
   remCartItem: (coffeeId:string) => void
   addCartItem: (id: string, qtd: number) => void
+  createPurchaseData: (data: FormPurchaseData) => void,
 }
 
 interface CartContextProviderProps {
@@ -179,6 +189,8 @@ export const coffeeList = [
 ]
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const navigate = useNavigate()
+  const [purchaseData, setPurchaseData] = useState<FormPurchaseData>({cep: '', logradouro: '', bairro: '', cidade: '', numero: '', uf: '', pagamento: ''})
   const [cartState, dispatch] = useReducer(
     cartReducer,
     { cartList: [] },
@@ -193,10 +205,25 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }
   )
 
-
-  
   const { cartList }  = cartState
-  console.log(cartList)
+  console.log(purchaseData)
+
+  function createPurchaseData(data: FormPurchaseData){
+    const newPurchaseData: FormPurchaseData = {
+        cep: data.cep,
+        logradouro: data.logradouro,
+        bairro: data.bairro,
+        cidade: data.cidade,
+        numero: data.numero,
+        uf: data.uf,
+        complemento: data.complemento,
+        pagamento: data.pagamento
+    }
+    setPurchaseData(newPurchaseData)
+    navigate("/success", {
+        state: data,
+    })
+  }
 
   useEffect(() => {
     const stateJSON = JSON.stringify(cartState)
@@ -239,10 +266,12 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     <CartContext.Provider value={
       {
         cartList,
+        purchaseData,
         subQuantCartItem,
         addQuantCartItem,
         remCartItem,
         addCartItem,
+        createPurchaseData, 
       }
     }>
       {children}

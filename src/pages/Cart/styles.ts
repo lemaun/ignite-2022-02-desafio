@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CartContainer = styled.main`
+export const CartContainer = styled.form`
   flex: 1;
   display: flex;
   flex-wrap: wrap;

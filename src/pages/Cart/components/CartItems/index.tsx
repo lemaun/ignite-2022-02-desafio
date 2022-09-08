@@ -38,7 +38,7 @@ export function CartItems() {
               <strong>R$ {grandTotal}</strong>    
           </ValueDescription>
         </ValuePurchase>
-        <ButtonPurchase><a>CONFIRMAR PEDIDO</a></ButtonPurchase>
+        <ButtonPurchase type="submit"><a>CONFIRMAR PEDIDO</a></ButtonPurchase>
       </CartItemsContainer>
     </div>
   )
