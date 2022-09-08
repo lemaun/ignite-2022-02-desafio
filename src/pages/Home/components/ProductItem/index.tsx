@@ -37,6 +37,8 @@ export function ProductItem({...props}:CoffeeProps) {
     addCartItem(props.id, qtd)
   }
 
+  const formattedPrice = props.price.toLocaleString('pt-br', {minimumFractionDigits: 2});
+
   return (
     <ItemContainer>
       <img src={props.image} />
@@ -48,7 +50,7 @@ export function ProductItem({...props}:CoffeeProps) {
       <CoffeeName>{props.name}</CoffeeName>
       <Description>{props.description}</Description>
       <PriceSession>
-        <Price><span>R$ </span>{props.price}</Price>
+        <Price><span>R$ </span>{formattedPrice}</Price>
         <AddCartContainer>
           <Counter>
               <ButtonCount onClick={subQtd}><Minus size={14} /></ButtonCount>

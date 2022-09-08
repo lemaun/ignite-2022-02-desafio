@@ -8,7 +8,7 @@ export enum ActionTypes {
   REM_ITEM = 'REM_ITEM',
 }
 
-export function addQuantCartItemAction(coffeeId: number) {
+export function addQuantCartItemAction(coffeeId: string) {
   return {
     type: ActionTypes.ADD_QTD_ITEM,
     payload: {
@@ -17,7 +17,7 @@ export function addQuantCartItemAction(coffeeId: number) {
   }
 }
 
-export function subQuantCartItemAction(coffeeId: number) {
+export function subQuantCartItemAction(coffeeId: string) {
   return {
     type: ActionTypes.SUB_QTD_ITEM,
     payload: {
@@ -26,7 +26,7 @@ export function subQuantCartItemAction(coffeeId: number) {
   }
 }
 
-export function remCartItemAction(coffeeId: number) {
+export function remCartItemAction(coffeeId: string) {
   return {
     type: ActionTypes.REM_ITEM,
     payload: {

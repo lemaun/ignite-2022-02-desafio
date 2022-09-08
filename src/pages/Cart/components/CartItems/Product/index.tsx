@@ -1,25 +1,42 @@
 import { Minus, Plus, Trash } from "phosphor-react";
 import { ButtonCountProduct, CounterProduct, DeleteProduct, InfosProduct, ProductContainer, ValuesProduct } from "./styles";
-import Coffee1 from '../../../../../assets/images/Expresso.png'
 
-export function Product() {
+import { useContext } from "react";
+import { CartContext } from "../../../../../contexts/CartContext";
+import { CoffeeCart } from "../../../../../reducers/cart/reducer";
+
+export function Product( { coffeeId, qtd, value, image, name }: CoffeeCart ) {
+  const { remCartItem, addQuantCartItem, subQuantCartItem } = useContext(CartContext)
+  const formattedValue = value.toLocaleString('pt-br', {minimumFractionDigits: 2})
+
+  function handleRemItemFromCart(){
+    remCartItem(coffeeId)
+  }
+
+  function handleAddQtd(){
+    addQuantCartItem(coffeeId)
+  }
+
+  function handleSubQtd(){
+    subQuantCartItem(coffeeId)
+  }
   return (
     <ProductContainer>
-        <img src={Coffee1}/>
+        <img src={image}/>
         <InfosProduct>
-            <p>Café do bão</p>
+            <p>{name}</p>
             <div>
                 <CounterProduct>
-                    <ButtonCountProduct><Minus size={14}/></ButtonCountProduct>
-                        <span>10</span>
-                    <ButtonCountProduct><Plus size={14}/></ButtonCountProduct>
+                    <ButtonCountProduct onClick={handleSubQtd}><Minus size={14}/></ButtonCountProduct>
+                        <span>{qtd}</span>
+                    <ButtonCountProduct onClick={handleAddQtd}><Plus size={14}/></ButtonCountProduct>
                 </CounterProduct>
-                <DeleteProduct>
+                <DeleteProduct onClick={handleRemItemFromCart}>
                     <span><Trash size={14}/></span> REMOVER
                 </DeleteProduct>
             </div>
         </InfosProduct>
-        <ValuesProduct>R$ 18,99</ValuesProduct>
+        <ValuesProduct>R$ {formattedValue}</ValuesProduct>
     </ProductContainer>
   )
 }

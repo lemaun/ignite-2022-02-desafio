@@ -4,20 +4,20 @@ import { createContext, ReactNode, useEffect, useReducer } from "react"
 import {v4 as uuidv4} from 'uuid'
 
 
-import Coffee1 from '../assets/images/Expresso.png'
-import Coffee2 from '../assets/images/Americano.png'
-import Coffee3 from '../assets/images/ExpressoCremoso.png'
-import Coffee4 from '../assets/images/CafeGelado.png'
-import Coffee5 from '../assets/images/CafecomLeite.png'
-import Coffee6 from '../assets/images/Latte.png'
-import Coffee7 from '../assets/images/Capuccino.png'
-import Coffee8 from '../assets/images/Macchiato.png'
-import Coffee9 from '../assets/images/Mochaccino.png'
-import Coffee10 from '../assets/images/ChocolateQuente.png'
-import Coffee11 from '../assets/images/Cubano.png'
-import Coffee12 from '../assets/images/Havaiano.png'
-import Coffee13 from '../assets/images/Arabe.png'
-import Coffee14 from '../assets/images/Irlandes.png'
+import Coffee1 from '/src/assets/images/Expresso.png'
+import Coffee2 from '/src/assets/images/Americano.png'
+import Coffee3 from '/src/assets/images/ExpressoCremoso.png'
+import Coffee4 from '/src/assets/images/CafeGelado.png'
+import Coffee5 from '/src/assets/images/CafecomLeite.png'
+import Coffee6 from '/src/assets/images/Latte.png'
+import Coffee7 from '/src/assets/images/Capuccino.png'
+import Coffee8 from '/src/assets/images/Macchiato.png'
+import Coffee9 from '/src/assets/images/Mochaccino.png'
+import Coffee10 from '/src/assets/images/ChocolateQuente.png'
+import Coffee11 from '/src/assets/images/Cubano.png'
+import Coffee12 from '/src/assets/images/Havaiano.png'
+import Coffee13 from '/src/assets/images/Arabe.png'
+import Coffee14 from '/src/assets/images/Irlandes.png'
 
 interface NewItemData {
   coffeeId: string
@@ -26,9 +26,9 @@ interface NewItemData {
 interface CoffeeContextType {
   // coffees: Coffee[]
   cartList: CoffeeCart[]
-  subQuantCartItem: (coffeeId:number) => void
-  addQuantCartItem: (coffeeId:number) => void
-  remCartItem: (coffeeId:number) => void
+  subQuantCartItem: (coffeeId:string) => void
+  addQuantCartItem: (coffeeId:string) => void
+  remCartItem: (coffeeId:string) => void
   addCartItem: (id: string, qtd: number) => void
 }
 
@@ -39,7 +39,7 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CoffeeContextType)
 export const coffeeList = [
   {
-      id:uuidv4(),
+      id:'Coffee1',
       image:Coffee1,
       name:"Expresso Tradicional",
       type:"TRADICIONAL",
@@ -49,7 +49,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee2',
       image:Coffee2,
       name:"Expresso Americano",
       type:"TRADICIONAL",
@@ -59,7 +59,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee3',
       image:Coffee3,
       name:"Expresso Cremoso",
       type:"TRADICIONAL",
@@ -69,7 +69,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee4',
       image:Coffee4,
       name:"Expresso Gelado",
       type:"TRADICIONAL",
@@ -80,7 +80,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee5',
       image:Coffee5,
       name:"Café com Leite",
       type:"TRADICIONAL",
@@ -91,7 +91,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee6',
       image:Coffee6,
       name:"Latte",
       typeduo:"COM LEITE",
@@ -101,7 +101,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee7',
       image:Coffee7,
       name:"Capuccino",
       typeduo:"COM LEITE",
@@ -111,7 +111,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee8',
       image:Coffee8,
       name:"Macchiato",
       typeduo:"COM LEITE",
@@ -121,7 +121,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee9',
       image:Coffee9,
       name:"Mocaccino",
       typeduo:"COM LEITE",
@@ -131,7 +131,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee10',
       image:Coffee10,
       name:"Chocolate Quente",
       type:"COM LEITE",
@@ -141,7 +141,7 @@ export const coffeeList = [
 
   },
   {
-      id:uuidv4(),
+      id:'Coffee11',
       image:Coffee11,
       name:"Cubano",
       typeduo:"ALCOÓLICO",
@@ -151,7 +151,7 @@ export const coffeeList = [
       description:"Drink gelado de café expresso com rum, creme de leite e hortelã"
 
   },{
-      id:uuidv4(),
+      id:'Coffee12',
       image:Coffee12,
       name:"Havaiano",
       type:"ESPECIAL",
@@ -159,7 +159,7 @@ export const coffeeList = [
       description:"Bebida adocicada preparada com café e leite de coco"
 
   },{
-      id:uuidv4(),
+      id:'Coffee13',
       image:Coffee13,
       name:"Árabe",
       type:"ESPECIAL",
@@ -167,7 +167,7 @@ export const coffeeList = [
       description:"Bebida preparada com grãos de café árabe e especiarias"
 
   },{
-      id:uuidv4(),
+      id:'Coffee14',
       image:Coffee14,
       name:"Irlandês",
       type:"ESPECIAL",
@@ -184,37 +184,34 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     { cartList: [] },
     () => {
       const storedStateAsJSON = localStorage.getItem('@coffee-shop:cart-state-1.0.0',)
-
+      
       if (storedStateAsJSON) {
         return JSON.parse(storedStateAsJSON)
       }
 
-      return {
-        cartList: []
-      }
+      
     }
   )
 
 
   
   const { cartList }  = cartState
-
+  console.log(cartList)
 
   useEffect(() => {
     const stateJSON = JSON.stringify(cartState)
-
     localStorage.setItem('@coffee-shop:cart-state-1.0.0', stateJSON)
   }, [cartState])
 
-  function subQuantCartItem(coffeeId: number) {
+  function subQuantCartItem(coffeeId: string) {
     dispatch(subQuantCartItemAction(coffeeId))
   }
 
-  function addQuantCartItem(coffeeId: number) {
+  function addQuantCartItem(coffeeId: string) {
     dispatch(addQuantCartItemAction(coffeeId))
   }
 
-  function remCartItem(coffeeId: number) {
+  function remCartItem(coffeeId: string) {
     dispatch(remCartItemAction(coffeeId))
   }
   function addCartItem(id: string, qtd: number) {
@@ -225,8 +222,12 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     const newItem: CoffeeCart = {
       coffeeId: id,
       qtd,
-      value: 10.9//coffeeList[coffeeListItemIndex].price * qtd
+      value: coffeeList[coffeeListItemIndex].price * qtd,
+      image: coffeeList[coffeeListItemIndex].image,
+      name: coffeeList[coffeeListItemIndex].name
     }
+
+
 
     dispatch(addItemToCartAction(newItem))
 
