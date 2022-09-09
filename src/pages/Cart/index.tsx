@@ -3,7 +3,7 @@ import { CartItems } from "./components/CartItems";
 import { CartContainer } from "./styles";
 import * as zod from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, useFormContext } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
@@ -48,8 +48,9 @@ export function Cart() {
 
   return (
     <CartContainer onSubmit={handleSubmit(handleConfirmPurchase)} action="">
-      
-      <CartForm/>
+      <FormProvider {...CartData}>
+        <CartForm/>
+      </FormProvider>
       <CartItems/>
 
     </CartContainer>

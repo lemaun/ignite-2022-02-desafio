@@ -213,10 +213,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         cep: data.cep,
         logradouro: data.logradouro,
         bairro: data.bairro,
-        cidade: data.cidade,
         numero: data.numero,
-        uf: data.uf,
         complemento: data.complemento,
+        cidade: data.cidade,
+        uf: data.uf,
         pagamento: data.pagamento
     }
     setPurchaseData(newPurchaseData)

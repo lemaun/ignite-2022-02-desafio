@@ -1,4 +1,5 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "phosphor-react";
+import { useFormContext } from "react-hook-form";
 import { 
   AddressForm, 
   Header,
@@ -15,9 +16,12 @@ import {
   Title, 
   Titles, 
   UFInput,
-  PaymentForm} from "./styles";
+  PaymentForm,
+  MethodPayment} from "./styles";
 
 export function CartForm() {
+  const { register, formState: {errors} } = useFormContext()
+  const paymentError = errors?.payment?.message as unknown as string
   return(
     <div>
       <h2>Complete seu pedido</h2>
@@ -34,30 +38,37 @@ export function CartForm() {
               <CepInput
                 id="cep"
                 placeholder="CEP"
-              />
+                {...register('cep')}
+                />
               <LogradouroInput
-                id="street"
+                id="logradouro"
                 placeholder="Rua/Av"
-              />
+                {...register('logradouro')}
+                />
               <NumInput
-                id="num"
+                id="numero"
                 placeholder="Número"
-              />
+                {...register('numero')}
+                />
               <CompInput
-                id="comp"
+                id="complemento"
                 placeholder="Complemento"
-              />
+                {...register('complemento')}
+                />
               <BairroInput
                 id="bairro"
                 placeholder="Bairro"
-              />
+                {...register('bairro')}
+                />
               <CidadeInput
                 id="cidade"
                 placeholder="Cidade"
-              />
+                {...register('cidade')}
+                />
               <UFInput
                 id="uf"
                 placeholder="UF"
+                {...register('uf')}
               />
             </AddressForm>
         </FormContainer>
@@ -70,10 +81,26 @@ export function CartForm() {
             </Titles>
           </Header>
             <PaymentForm>
-              <button><span><CreditCard size={16}/></span>CARTÃO DE CRÉDITO</button>
-              <button><span><Bank size={16}/></span>CARTÃO DE DÉBITO</button>
-              <button><span><Money size={16}/></span>DINHEIRO</button>
+              <MethodPayment>
+                <input id="credit" value="Cartão de Crédito" type="radio" {...register('pagamento')}/>
+                <label htmlFor="credit">
+                  <div><CreditCard color="#8047F8" size={16} />CARTÃO DE CRÉDITO</div>
+                </label>
+              </MethodPayment>
+              <MethodPayment>
+                <input id="debit" value="Cartão de Débito" type="radio" {...register('pagamento')} />
+                <label htmlFor="debit">
+                  <div><Bank color="#8047F8" size={16} />CARTÃO DE DÉBITO</div>
+                </label>
+              </MethodPayment>
+              <MethodPayment>
+                <input id="money" value="Dinheiro" type="radio" {...register('pagamento')} />
+                <label htmlFor="money">
+                  <div><Money color="#8047F8" size={16} />DINHEIRO</div>
+                </label>
+              </MethodPayment>
             </PaymentForm>
+            <span>{paymentError}</span>
         </FormContainer>
       </CartFormContainer>
     </div>

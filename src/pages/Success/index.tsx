@@ -1,8 +1,11 @@
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 import { DetailItem, Details, DetailsContainer, Icon, SuccessContainer } from "./styles";
 import imgDelivery from '../../assets/images/Delivery.png'
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 export function Success() {
+  const { purchaseData } = useContext(CartContext)
   return (
     <SuccessContainer>
       <div>
@@ -13,7 +16,7 @@ export function Success() {
         <Details>
           <DetailItem>
             <Icon Color="purple"><MapPin weight="fill" size={16} /></Icon>
-            <p>Entrega em <strong>Rua João Daniel Martinelli, 102</strong><br/>Farrapos - Porto Alegre, RS</p>
+            <p>Entrega em <strong>{purchaseData.logradouro}, {purchaseData.numero}</strong><br/>{purchaseData.bairro} - {purchaseData.cidade}, {purchaseData.uf}</p>
           </DetailItem>
           <DetailItem>
             <Icon Color="yellow"><Timer weight="fill" size={16} /></Icon>
@@ -21,7 +24,7 @@ export function Success() {
           </DetailItem>
           <DetailItem>
             <Icon Color="yellowD"><CurrencyDollar size={16} /></Icon>
-            <p>Pagamento na entrega<br/><strong>Cartão de Crédito</strong></p>
+            <p>Pagamento na entrega<br/><strong>{purchaseData.pagamento}</strong></p>
           </DetailItem>
         </Details>
         <div>

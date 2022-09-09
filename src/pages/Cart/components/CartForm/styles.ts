@@ -124,30 +124,37 @@ export const PaymentForm = styled.div`
     display: grid;
     grid-template-columns: 1fr;
   }
-  button{
-    display: flex;
-    flex: 1;
-    gap: 0.75rem;
-    align-items: center;
-    background: ${props => props.theme['base-button']};
-    color: ${props => props.theme['base-text']};
-    font-size: 0.75rem;
-    font-weight: 400;
-    padding: 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    border: none;
-    :hover{
-      background: ${props => props.theme['base-hover']};
-      cursor: pointer;
-    }
-    :focus{
+`
+
+export const MethodPayment = styled.div`
+  width: 100%;
+  input{
+      visibility: none;
+      appearance: none;
+  }
+  input:checked{
+      box-shadow: none
+  }
+  div{
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      background: ${props => props.theme['base-button']};
+      color: ${props => props.theme['base-text']};
+      font-family: 'Roboto';
+      font-size: 0.75rem;
+      font-weight: 400;
+      height: 3rem;
+      border-radius: 6px;
+      :hover{
+          background: ${props => props.theme['base-hover']};
+          cursor: pointer;
+      }
+  }
+  input:checked + label div{
       background: ${props => props.theme['purple-light']};
       box-shadow: 0 0 0 2px ${(props) => props.theme.purple};
-    }
-    span {
-      color: ${(props) => props.theme.purple};
-    }
   }
-
 `
