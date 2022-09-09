@@ -201,12 +201,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         return JSON.parse(storedStateAsJSON)
       }
 
-      
     }
   )
 
   const { cartList }  = cartState
-  console.log(purchaseData)
 
   function createPurchaseData(data: FormPurchaseData){
     const newPurchaseData: FormPurchaseData = {
@@ -254,14 +252,11 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       name: coffeeList[coffeeListItemIndex].name
     }
 
-
-
     dispatch(addItemToCartAction(newItem))
 
   }
 
 
-  
   return (
     <CartContext.Provider value={
       {

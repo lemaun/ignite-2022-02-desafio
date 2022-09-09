@@ -33,7 +33,6 @@ export function cartReducer(state: CoffeeState, action: any) {
       const coffeeItemIndex = coffeeList.findIndex((Coffee) => {
         return Coffee.id === action.payload.coffeeId
       })
-      console.log(coffeeList[coffeeItemIndex].price)
       
       return produce(state, draft => {
         draft.cartList[cartItemIndex].qtd += 1
