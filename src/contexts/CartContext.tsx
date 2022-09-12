@@ -1,4 +1,4 @@
-import { addItemToCartAction, remCartItemAction, subQuantCartItemAction, addQuantCartItemAction } from "../reducers/cart/actions"
+import { addItemToCartAction, remCartItemAction, subQuantCartItemAction, addQuantCartItemAction, cleanCartAction } from "../reducers/cart/actions"
 import { cartReducer, CoffeeCart } from "../reducers/cart/reducer"
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 import { useNavigate } from "react-router-dom";
@@ -40,6 +40,7 @@ interface CoffeeContextType {
   remCartItem: (coffeeId:string) => void
   addCartItem: (id: string, qtd: number) => void
   createPurchaseData: (data: FormPurchaseData) => void,
+  cleanCart: () => void,
 }
 
 interface CartContextProviderProps {
@@ -239,6 +240,11 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   function remCartItem(coffeeId: string) {
     dispatch(remCartItemAction(coffeeId))
   }
+
+  function cleanCart() {
+    dispatch(cleanCartAction())
+  }
+
   function addCartItem(id: string, qtd: number) {
     const coffeeListItemIndex = coffeeList.findIndex((Coffee) => {
       return Coffee.id === id
@@ -266,7 +272,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addQuantCartItem,
         remCartItem,
         addCartItem,
-        createPurchaseData, 
+        createPurchaseData,
+        cleanCart, 
       }
     }>
       {children}

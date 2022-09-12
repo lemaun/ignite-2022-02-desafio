@@ -9,6 +9,8 @@ import { NavLink } from "react-router-dom";
 
 export function Header() {
   const { cartList } = useContext(CartContext)
+  const link = cartList.length > 0 ? '/cart' : '/'
+
   return (
     <HeaderContainer>
       <NavLink to="/">
@@ -21,7 +23,7 @@ export function Header() {
           Porto Alegre, RS
         </CityButton>
 
-        <CartButton to="/cart">
+        <CartButton to={link}>
           <ShoppingCart weight="fill" size={22}/>
         </CartButton>
         {cartList.length > 0 && <CartNumberItems>{cartList.length}</CartNumberItems>}

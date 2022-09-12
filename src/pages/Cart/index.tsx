@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import { cleanCartAction } from "../../reducers/cart/actions";
 
 const cartFormValidationSchema = zod.object({
   cep: zod.string().regex(/^[0-9]{5}-[0-9]{3}$/,'Informe o CEP no padrão 99999-999'),
@@ -23,7 +24,7 @@ type CartFormData = zod.infer<typeof cartFormValidationSchema> //infere os tipos
 
 export function Cart() {
   // const {register} = useFormContext()
-  const { createPurchaseData, purchaseData } = useContext(CartContext)
+  const { createPurchaseData, purchaseData, cleanCart } = useContext(CartContext)
 
   const CartData = useForm<CartFormData>({
     resolver: zodResolver(cartFormValidationSchema),
@@ -44,6 +45,7 @@ export function Cart() {
   function handleConfirmPurchase(data: CartFormData) {
     createPurchaseData(data)
     reset()
+    cleanCart()
   }
 
   return (

@@ -6,6 +6,7 @@ export enum ActionTypes {
   SUB_QTD_ITEM = 'SUB_QTD_ITEM',
   ADD_ITEM = 'ADD_ITEM',
   REM_ITEM = 'REM_ITEM',
+  CLEAN_CART = 'CLEAN_CART',
 }
 
 export function addQuantCartItemAction(coffeeId: string) {
@@ -41,5 +42,11 @@ export function addItemToCartAction(newItem: CoffeeCart) {
     payload: {
       newItem,
     }
+  }
+}
+
+export function cleanCartAction() {
+  return {
+    type: ActionTypes.CLEAN_CART,
   }
 }
